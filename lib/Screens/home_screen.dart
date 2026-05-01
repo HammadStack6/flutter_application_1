@@ -5,9 +5,12 @@ import 'detail_screen.dart';
 import 'orders_screen.dart';
 import 'admin_screen.dart';
 import 'package:flutter_application_1/data/food_data.dart';
+// class HomeScreen extends StatefulWidget {
+//   const HomeScreen({super.key});
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final bool isAdmin;
 
+  const HomeScreen({super.key, required this.isAdmin});
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -46,16 +49,27 @@ class _HomeScreenState extends State<HomeScreen> {
               );
             },
           ),
-          IconButton(
-            icon: const Icon(Icons.admin_panel_settings),
-            tooltip: 'Admin',
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const AdminScreen()),
-              );
-            },
-          ),
+          // IconButton(
+          //   icon: const Icon(Icons.admin_panel_settings),
+          //   tooltip: 'Admin',
+          //   onPressed: () {
+          //     Navigator.push(
+          //       context,
+          //       MaterialPageRoute(builder: (_) => const AdminScreen()),
+          //     );
+          //   },
+          // ),
+          if (widget.isAdmin)
+  IconButton(
+    icon: const Icon(Icons.admin_panel_settings),
+    tooltip: 'Admin',
+    onPressed: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (_) => const AdminScreen()),
+      );
+    },
+  ),
         ],
       ),
       body: Column(
