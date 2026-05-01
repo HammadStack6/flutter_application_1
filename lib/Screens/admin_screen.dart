@@ -13,7 +13,7 @@ class _AdminScreenState extends State<AdminScreen> {
 
   void addFood() {
     foodList.add(Food(
-      name: "New Item",
+      name: "shef's special",
       price: 10,
       description: "Test",
       category: "Fast Food",
