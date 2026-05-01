@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'signup_screen.dart';
 import 'home_screen.dart';
-import 'admin_screen.dart';
+
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -15,37 +15,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-//   void login() {
-//     String email = emailController.text.trim();
-//     String password = passwordController.text.trim();
 
-//     // USER LOGIN
-//     if (email == "H@gmail.com" && password == "9") {
-//       Navigator.push(
-//         context,
-//         // MaterialPageRoute(builder: (_) => const HomeScreen()),
-//         MaterialPageRoute(
-//   builder: (_) => const HomeScreen(isAdmin: false),
-// ),
-//       );
-//     }
-//     // ADMIN LOGIN
-//     else if (email == "admin" && password == "1") {
-//       Navigator.push(
-//         context,
-//         // MaterialPageRoute(builder: (_) => const AdminScreen()),
-//         MaterialPageRoute(
-//   builder: (_) => const HomeScreen(isAdmin: true),
-// ),
-//       );
-//     }
-//     // INVALID
-//     else {
-//       ScaffoldMessenger.of(context).showSnackBar(
-//         const SnackBar(content: Text("Invalid email or password")),
-//       );
-//     }
-//   }
 
 void login() {
   String email = emailController.text.trim();
