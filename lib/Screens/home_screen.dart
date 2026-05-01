@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import '../models/food.dart';
+import 'package:flutter_application_1/models/food.dart';
+import 'cart_screen.dart';
 import 'detail_screen.dart';
-
+import 'orders_screen.dart';
+import 'admin_screen.dart';
+import 'package:flutter_application_1/data/food_data.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -10,12 +13,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<Food> foods = [
-    Food(name: "Burger", price: 5, description: "Tasty burger", category: "Fast Food"),
-    Food(name: "Pizza", price: 8, description: "Cheesy pizza", category: "Fast Food"),
-    Food(name: "Coke", price: 2, description: "Cold drink", category: "Drinks"),
-  ];
-
+  List<Food> foods = foodList;
   String search = "";
 
   @override
@@ -25,7 +23,41 @@ class _HomeScreenState extends State<HomeScreen> {
         .toList();
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Menu")),
+      appBar: AppBar(
+        title: const Text("Menu"),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.shopping_cart),
+            tooltip: 'Cart',
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const CartScreen()),
+              );
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.receipt_long),
+            tooltip: 'Orders',
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const OrdersScreen()),
+              );
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.admin_panel_settings),
+            tooltip: 'Admin',
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const AdminScreen()),
+              );
+            },
+          ),
+        ],
+      ),
       body: Column(
         children: [
           Padding(
