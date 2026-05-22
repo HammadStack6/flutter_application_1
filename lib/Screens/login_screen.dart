@@ -50,7 +50,7 @@ void login() {
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
-          children: [
+  children: [
             TextField(
               controller: emailController,
               decoration: const InputDecoration(labelText: "Email"),

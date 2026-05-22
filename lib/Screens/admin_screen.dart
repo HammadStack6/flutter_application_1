@@ -1,77 +1,94 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/data/food_data.dart';
-import 'package:flutter_application_1/models/food.dart';
+import 'package:flutter_application_1/services/api_service.dart';
 
 class AdminScreen extends StatefulWidget {
   const AdminScreen({super.key});
 
   @override
-  State<AdminScreen> createState() => _AdminScreenState();
+  State<AdminScreen> createState() =>
+      _AdminScreenState();
 }
 
 class _AdminScreenState extends State<AdminScreen> {
 
-  void addFood() {
-    foodList.add(Food(
-      name: "shef's special",
-      price: 10,
-      description: "Test",
-      category: "Fast Food",
-      image: "",
-    ));
+  List foods = [];
+  bool isLoading = true;
 
-    setState(() {});
+  @override
+  void initState() {
+    super.initState();
+    fetchFoods();
   }
 
-  void editFood(int index) {
-    foodList[index].name = '${foodList[index].name} (Updated)';
-    foodList[index].price += 1;
+  void fetchFoods() async {
+    final data =
+        await ApiService.getFoods();
 
-    setState(() {});
+    setState(() {
+      foods = data;
+      isLoading = false;
+    });
   }
 
-  void deleteFood(int index) {
-    foodList.removeAt(index);
-    setState(() {});
+  void addFood() async {
+
+    await ApiService.addFood({
+      "name": "Chef Special",
+      "price": 10,
+      "description": "Test",
+      "category": "Fast Food",
+      "image":
+          "https://images.unsplash.com/photo-1568901346375-23c9450c58cd"
+    });
+
+    fetchFoods();
+  }
+
+  void deleteFood(int id) async {
+    await ApiService.deleteFood(id);
+    fetchFoods();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Admin Panel")),
+      appBar: AppBar(
+        title: const Text("Admin Panel"),
+      ),
 
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton:
+          FloatingActionButton(
         onPressed: addFood,
         child: const Icon(Icons.add),
       ),
 
-      body: ListView.builder(
-        itemCount: foodList.length,
-        itemBuilder: (_, i) {
-          final food = foodList[i];
+      body: isLoading
+          ? const Center(
+              child:
+                  CircularProgressIndicator(),
+            )
+          : ListView.builder(
+              itemCount: foods.length,
+              itemBuilder: (_, i) {
 
-          return ListTile(
-            title: Text(food.name),
-            subtitle: Text("\$${food.price}"),
+                final food = foods[i];
 
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
+                return ListTile(
+                  title: Text(food['name']),
+                  subtitle:
+                      Text("\$${food['price']}"),
 
-                IconButton(
-                  icon: const Icon(Icons.edit),
-                  onPressed: () => editFood(i),
-                ),
+                  trailing: IconButton(
+                    icon:
+                        const Icon(Icons.delete),
 
-                IconButton(
-                  icon: const Icon(Icons.delete),
-                  onPressed: () => deleteFood(i),
-                ),
-              ],
+                    onPressed: () {
+                      deleteFood(food['id']);
+                    },
+                  ),
+                );
+              },
             ),
-          );
-        },
-      ),
     );
   }
 }

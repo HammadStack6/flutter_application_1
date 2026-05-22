@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       title: 'Restaurant Menu',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 8, 84, 151)),
       ),
       home: const LoginScreen(),//its direct the app on the login screen 
     );
